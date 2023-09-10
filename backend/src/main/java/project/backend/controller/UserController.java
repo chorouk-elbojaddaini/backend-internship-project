@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.backend.dao.UserDAO;
+import project.backend.dto.UserDTO;
 import project.backend.service.UserService;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<String> addUser(@RequestBody UserDAO user){
+    public ResponseEntity<String> addUser(@RequestBody UserDTO user){
         try {
             UserDAO newUsr = userService.addUser(user);
             return new ResponseEntity<>("User added successfully", HttpStatus.CREATED);
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public UserDAO updateUser(@RequestBody UserDAO user,@PathVariable("id") Long id){
+    public UserDAO updateUser(@RequestBody UserDTO user,@PathVariable("id") Long id){
         return userService.updateUser(user,id);
     }
 }

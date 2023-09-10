@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.backend.dao.UserDAO;
+import project.backend.dto.UserDTO;
 import project.backend.repository.UserRepository;
 
 import java.util.List;
@@ -22,8 +23,14 @@ public class UserService {
         }
         return user;
     }
-    public UserDAO addUser(UserDAO user){
-        return userRepository.save(user);
+    public UserDAO addUser(UserDTO user){
+        UserDAO newUser = UserDAO.builder()
+                .name(user.getName())
+                .job(user.getJob())
+                .image(user.getImage())
+                .build();
+
+        return userRepository.save(newUser);
     }
 
     public List<UserDAO> getAllUsers(){
@@ -41,7 +48,7 @@ public class UserService {
         }
     }
 
-    public UserDAO updateUser(UserDAO user,Long id){
+    public UserDAO updateUser(UserDTO user,Long id){
         UserDAO userToUpdate = userRepository.findById(id).get();
         if(user.getName() != null){
             userToUpdate.setName(user.getName());

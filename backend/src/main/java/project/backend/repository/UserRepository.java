@@ -10,4 +10,5 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<UserDAO,Long> {
     List<UserDAO> findAll();
 
+
 }
